@@ -82,7 +82,7 @@
                   <span v-if="comment.uid === 1">
                     <a href="javascript:;" @click="editComment(comment.commentId, index)"><i class="fa fa-edit"></i></a>
                     <span> ⋅ </span>
-                    <a href="javascript:;"><i class="fa fa-trash-o"></i></a>
+                    <a href="javascript:;" @click="deleteComment(comment.commentId)"><i class="fa fa-trash-o"></i></a>
                   </span>
                 </span>
                 <div class="meta">
@@ -342,7 +342,7 @@
           }
         }
       },
-// 取消编辑评论
+      // 取消编辑评论
       cancelEditComment() {
         // 清除 commentId
         this.commentId = undefined
@@ -357,6 +357,22 @@
           if (currentComment) {
             currentComment.scrollIntoView(true)
             currentComment.querySelector('.operate a').focus()
+          }
+        })
+      },
+      // 删除评论
+      deleteComment(commentId) {
+        this.$swal({
+          text: '你确定要删除此评论吗?',
+          confirmButtonText: '删除'
+        }).then((res) => {
+          if (res.value) {
+            // 此时不用传入 comment
+            this.$store.dispatch('comment', {
+              commentId,
+              articleId: this.articleId
+            }).then(this.renderComments)
+            this.cancelEditComment()
           }
         })
       },
