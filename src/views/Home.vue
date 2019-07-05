@@ -43,14 +43,22 @@
         </div>
       </div>
     </div>
+    <!-- 侧栏 -->
+    <TheSidebar/>
   </div>
 </template>
 
 <script>
   import { mapState } from 'vuex'
+  // 引入 TheSidebar.vue 的默认值
+  import TheSidebar from '@/components/layouts/TheSidebar'
 
   export default {
     name: 'Home',
+    components: {
+      // 局部注册 TheSidebar
+      TheSidebar
+    },
     data() {
       return {
         msg: '',
@@ -66,7 +74,7 @@
           { filter: 'noreply', name: '零回复', title: '无人问津的话题'}
         ],
         total: 0, // 文章总数
-        pageSize: 10, // 每页条数
+        pageSize: 20, // 每页条数
       }
     },
     beforeRouteEnter(to, from, next) {
