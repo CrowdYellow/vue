@@ -26,10 +26,18 @@
 <script>
   import SimpleMDE from 'simplemde'
   import hljs from 'highlight.js'
+  import ls from '@/utils/localStorage'
 
   window.hljs = hljs
+
   export default {
     name: 'Create',
+    data() {
+      return {
+        title: '', // 文章标题
+        content: '' // 文章内容
+      }
+    },
     mounted() {
       const simplemde = new SimpleMDE({
         element: document.querySelector('#editor'),
@@ -44,6 +52,48 @@
           codeSyntaxHighlighting: true
         }
       })
+
+      simplemde.codemirror.on('change', () => {
+        this.content = simplemde.value()
+      })
+
+      this.simplemde = simplemde
+      this.fillContent()
+    },
+    methods: {
+      saveTitle() {
+        ls.setItem('smde_title', this.title)
+      },
+      fillContent() {
+        const simplemde = this.simplemde
+        const title = ls.getItem('smde_title')
+
+        if (title !== null) {
+          this.title = title
+        }
+
+        this.content = simplemde.value()
+      },
+      post() {
+        const title = this.title
+        const content = this.content
+
+        if (title !== '' && content.trim() !== '') {
+          const article = {
+            title,
+            content
+          }
+
+          this.$store.dispatch('post', { article })
+          this.clearData()
+        }
+      },
+      clearData() {
+        this.title = ''
+        ls.removeItem('smde_title')
+        this.simplemde.value('')
+        this.simplemde.clearAutosavedValue()
+      }
     }
   }
 </script>
