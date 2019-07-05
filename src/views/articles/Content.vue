@@ -31,6 +31,7 @@
           <div class="user-lists">
         <span v-for="likeUser in likeUsers">
           <!-- 点赞用户是当前用户时，加上类 animated 和 swing 以显示一个特别的动画  -->
+          <img class="animated swing">
           <img :src="user && user.avatar" class="img-thumbnail avatar avatar-middle" :class="{ 'animated swing' : likeUser.uid === 1 }">
         </span>
           </div>
