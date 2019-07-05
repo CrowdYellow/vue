@@ -7,14 +7,14 @@
           <hr>
           <div data-validator-form>
             <div class="form-group">
-              <input v-validator.required="{ title: '标题' }" type="text" class="form-control" placeholder="请填写标题">
+              <input v-model.trim="title" v-validator:blur.required="{ title: '标题' }" type="text" class="form-control" placeholder="请填写标题" @input="saveTitle">
             </div>
             <div class="form-group">
               <textarea id="editor"></textarea>
             </div>
             <br>
             <div class="form-group">
-              <button class="btn btn-primary" type="submit">发 布</button>
+              <button class="btn btn-primary" type="submit" @click="post">发 布</button>
             </div>
           </div>
         </div>
