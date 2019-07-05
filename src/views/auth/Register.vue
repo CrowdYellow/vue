@@ -23,8 +23,8 @@
             <label class="control-label">图片验证码</label>
             <input v-validator.required="{ title: '图片验证码' }" type="text" class="form-control" placeholder="请填写验证码">
           </div>
-          <div class="thumbnail" title="点击图片重新获取验证码">
-            <div class="captcha"></div>
+          <div class="thumbnail" title="点击图片重新获取验证码" @click="getCaptcha">
+            <div class="captcha vcenter" v-html="captchaTpl"></div>
           </div>
           <button type="submit" class="btn btn-lg btn-success btn-block">
             <i class="fa fa-btn fa-sign-in"></i> 注册
@@ -36,12 +36,31 @@
 </template>
 
 <script>
-  export default {
-    name: 'Register'
+import createCaptcha from '@/utils/createCaptcha'
+
+export default {
+  name: 'Register',
+  data() {
+    return {
+      captchaTpl: '' // 验证码模板
+    }
+  },
+  created() {
+    this.getCaptcha()
+  },
+  methods: {
+    getCaptcha() {
+      const { tpl, captcha } = createCaptcha()
+
+      this.captchaTpl = tpl
+      this.localCaptcha = captcha
+    }
   }
+}
 </script>
 
 <style scoped>
   .thumbnail { width: 170px; margin-top: 10px; cursor: pointer;}
   .thumbnail .captcha { height: 46px; background: #E1E6E8;}
+  .captcha { font-size: 24px; font-weight: bold; user-select: none;}
 </style>
