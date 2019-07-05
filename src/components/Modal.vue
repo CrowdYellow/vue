@@ -1,25 +1,32 @@
 <template>
   <div>
-    <div v-show="show" class="modal" style="display:block" @click.self="close">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button @click="close" class="close">×</button>
-            <h4 class="modal-title">
-              <slot name="title"></slot>
-            </h4>
-          </div>
-          <div class="modal-body">
-            <slot></slot>
-          </div>
-          <div class="modal-footer">
-            <slot name="footer"></slot>
+    <transition
+      enter-active-class="animated fadeInDown"
+      leave-active-class="animated fadeOutUp"
+    >
+      <div v-show="show" class="modal" style="display:block" @click.self="close">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button @click="close" class="close">×</button>
+              <h4 class="modal-title">
+                <slot name="title"></slot>
+              </h4>
+            </div>
+            <div class="modal-body">
+              <slot></slot>
+            </div>
+            <div class="modal-footer">
+              <slot name="footer"></slot>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </transition>
 
-    <div v-show="show" class="modal-backdrop fade in" @click="close"></div>
+    <transition name="fade">
+      <div v-show="show" class="modal-backdrop fade in" @click="close"></div>
+    </transition>
   </div>
 </template>
 
@@ -55,5 +62,6 @@
 </script>
 
 <style scoped>
-
+  .fade-enter-active, .fade-leave-active { transition: opacity .5s;}
+  .fade-enter, .fade-leave-to { opacity: 0;}
 </style>
