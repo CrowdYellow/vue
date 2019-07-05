@@ -9,10 +9,10 @@
           <span class="icon-bar"></span>
         </button>
 
-        <a href="/" class="navbar-brand">
+        <router-link to="/" class="navbar-brand">
           <span class="title">{{ logo.title }}</span>
           <img :src="logo.src" :alt="logo.title">
-        </a>
+        </router-link>
       </div>
 
       <div id="top-navbar-collapse" :class="['collapse', 'navbar-collapse', { in: showCollapsedNav }]">
@@ -21,12 +21,18 @@
             <a href="#" @click="changeNavIndex(index)">{{ item }}</a>
           </li>
         </ul>
+
+        <!-- 入口组件 -->
+        <div class="navbar-right">
+          <TheEntry/>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import TheEntry from '@/components/layouts/TheEntry'
   export default {
     name: 'TheHeader',
     data() {
@@ -39,6 +45,9 @@
         activeNavIndex: 0,
         showCollapsedNav: false
       }
+    },
+    components: {
+      TheEntry
     },
     beforeCreate() {
       this.uploadsUrl = 'https://vuejscaffcdn.phphub.org/uploads/'
