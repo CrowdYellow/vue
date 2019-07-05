@@ -11,8 +11,9 @@ const state = {
   user: ls.getItem('user'),
   auth: ls.getItem('auth'),
   articles: ls.getItem('articles'),
-  // 搜索值
-  searchValue: ''
+  searchValue: '',
+  // 默认为 location.origin
+  origin: location.origin
 }
 
 const mutations = {
