@@ -215,17 +215,18 @@
           }
         })
 
+        simplemde.codemirror.on('keyup', (codemirror, event) => {
+          if (event.ctrlKey && event.keyCode === 13) {
+            this.comment()
+          } else if (this.commentId && event.keyCode === 27) { // 存在 commentId，且按下 Esc 键时
+            // 取消编辑评论
+            this.cancelEditComment()
+          }
+        })
+
         // 将编辑器添加到当前实例
         this.simplemde = simplemde
       }
-      simplemde.codemirror.on('keyup', (codemirror, event) => {
-        if (event.ctrlKey && event.keyCode === 13) {
-          this.comment()
-        } else if (this.commentId && event.keyCode === 27) { // 存在 commentId，且按下 Esc 键时
-          // 取消编辑评论
-          this.cancelEditComment()
-        }
-      })
     },
     methods: {
       editArticle() {

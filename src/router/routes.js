@@ -4,11 +4,11 @@ export default [
     name: 'Register',
     component: () => import('@/views/auth/Register')
   },
-  {
-    path: '/',
-    name: 'Home',
-    component: () => import('@/views/Home')
-  },
+  // {
+  //   path: '/',
+  //   name: 'Home',
+  //   component: () => import('@/views/Home')
+  // },
   {
     path: '*',
     redirect: '/'
